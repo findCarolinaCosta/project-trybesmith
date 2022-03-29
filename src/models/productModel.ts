@@ -11,5 +11,4 @@ export default class ProductModel {
       .execute('SELECT * FROM Trybesmith.Products;');
     return products as IPRODUCT[];
   }
-
 }

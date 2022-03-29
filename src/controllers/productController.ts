@@ -8,5 +8,4 @@ export default class ProductController {
     const products = await this.postService.getAll();
     return res.status(200).json(products);
   };
-
 }
