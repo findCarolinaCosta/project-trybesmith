@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import LoginService from '../services/loginService';
-import jwtGenerator from '../utils/jwtGenerator';
+import { createToken } from '../utils/jwtGenerator';
 
 export default class LoginController {
   constructor(private loginService = new LoginService()) { }
@@ -14,7 +14,7 @@ export default class LoginController {
       return res.status(401).json({ error: 'Username or password invalid' });
     }
 
-    const token = jwtGenerator({
+    const token = createToken({
       id: resultUser.id,
       username: resultUser.username,
       classe: resultUser.classe, 

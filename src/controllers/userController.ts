@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import UserService from '../services/userService';
-import jwtGenerator from '../utils/jwtGenerator';
+import { createToken } from '../utils/jwtGenerator';
 
 export default class UserController {
   constructor(private userService = new UserService()) { }
@@ -10,7 +10,7 @@ export default class UserController {
 
     const userCreated = await this.userService.create(user);
 
-    const token = jwtGenerator({ 
+    const token = createToken({ 
       id: userCreated.id, 
       username: userCreated.username, 
       classe: userCreated.classe, 

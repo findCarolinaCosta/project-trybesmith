@@ -6,6 +6,6 @@ const jwtConfig = {
 
 const SECRET: string | undefined = process.env.SECRET_KEY || 'superSecretKey';
 
-const createToken = (data: object = {}) => jwt.sign({ data }, SECRET, jwtConfig);
+export const createToken = (data: object = {}) => jwt.sign({ data }, SECRET, jwtConfig);
 
-export default createToken;
+export const validateToken = (token: string) => jwt.verify(token, SECRET) as jwt.JwtPayload;

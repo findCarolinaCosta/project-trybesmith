@@ -1,6 +1,6 @@
+import { IORDERSERVICE } from '../interfaces/orderInterface';
 import connection from '../models/connection';
 import OrderModel from '../models/orderModel';
-import { IORDERSERVICE } from '../interfaces/orderInterface';
 
 export default class OrderService {
   public model: OrderModel;
@@ -18,5 +18,9 @@ export default class OrderService {
     }));
 
     return orders;
+  }
+
+  async create(order: IORDERSERVICE): Promise<void> {
+    await this.model.create(order);
   }
 }
