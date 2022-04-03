@@ -1,0 +1,152 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Trybesmith",
+    "description": "Essa API tem como objetivo a manipulação de itens medievais ➝ **CRUD** (Create, Read, Update e Delete)",
+    "contact": {
+      "email": "carolinadacosta1997@gmail.com"
+    },
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "API de final"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "post": {
+        "summary": "Cadastro de item medieval",
+        "description": "Essa rota será responsável por cadastrar um novo item medieval",
+        "tags": ["Products"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schema/Products"
+              },
+              "examples": {
+                "product": {
+                  "value": {
+                    "name": "Arco Escudo Invejável",
+                    "amount": "3 Gemas da Noite"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schema/ItemError"
+                },
+                "examples": {
+                  "name": {
+                    "value": {
+                      "error": "Name is required"
+                    }
+                  },
+                  "amount": {
+                    "value": {
+                      "error": "Amount is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schema/ItemError"
+                },
+                "examples": {
+                  "Name error type": {
+                    "value": {
+                      "error": "Name must be a string"
+                    }
+                  },
+                  "Name error case: minimum characters": {
+                    "value": {
+                      "error": "Name must be longer than 2 characters"
+                    }
+                  },
+                  "Amount error type": {
+                    "value": {
+                      "error": "Amount must be a string"
+                    }
+                  },
+                  "Amount error case: minimum characters": {
+                    "value": {
+                      "error": "Amount must be longer than 2 characters"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/ItemCreated"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schema": {
+      "Products": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string"
+          }
+        }
+      },
+      "ItemError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "ItemCreated": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
