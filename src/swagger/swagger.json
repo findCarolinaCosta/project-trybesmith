@@ -141,6 +141,129 @@
           }
         }
       }
+    },
+    "/users": {
+      "post": {
+        "summary": "Cadastro de um usuário",
+        "description": "Essa rota será responsável por cadastrar um novo usuário",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schema/UserRequest"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "username": "username",
+                    "classe": "userClasse",
+                    "level": 2,
+                    "password": "Password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schema/ObjectError"
+                },
+                "examples": {
+                  "username": {
+                    "value": {
+                      "error": "Username is required"
+                    }
+                  },
+                  "classe": {
+                    "value": {
+                      "error": "Classe is required"
+                    }
+                  },
+                  "level": {
+                    "value": {
+                      "error": "Level is required"
+                    }
+                  },
+                  "password": {
+                    "value": {
+                      "error": "Classe is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schema/ObjectError"
+                },
+                "examples": {
+                  "Username error type": {
+                    "value": {
+                      "error": "Username must be a string"
+                    }
+                  },
+                  "Username error case: minimum characters": {
+                    "value": {
+                      "error": "Username must be longer than 2 characters"
+                    }
+                  },
+                  "Classe error type": {
+                    "value": {
+                      "error": "Classe must be a string"
+                    }
+                  },
+                  "Classe error case: minimum characters": {
+                    "value": {
+                      "error": "Classe must be longer than 2 characters"
+                    }
+                  },
+                  "Level error type": {
+                    "value": {
+                      "error": "Level must be a number"
+                    }
+                  },
+                  "Level error case: minimum characters": {
+                    "value": {
+                      "error": "Level must be greater than 0"
+                    }
+                  },
+                  "Password error type": {
+                    "value": {
+                      "error": "Password must be a string"
+                    }
+                  },
+                  "Password error case: minimum characters": {
+                    "value": {
+                      "error": "Password must be longer than 7 characters"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schema/Token"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -201,6 +324,32 @@
               "type": "number",
               "nullable": true
             }
+          }
+        }
+      },
+      "UserRequest": {
+        "type": "object",
+        "required": ["username", "classe", "level", "password"],
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "classe": {
+            "type": "string"
+          },
+          "level": {
+            "type": "number"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
           }
         }
       }
