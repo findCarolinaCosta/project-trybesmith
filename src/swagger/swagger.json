@@ -43,7 +43,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schema/ItemError"
+                  "$ref": "#/components/schema/ObjectError"
                 },
                 "examples": {
                   "name": {
@@ -65,7 +65,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schema/ItemError"
+                  "$ref": "#/components/schema/ObjectError"
                 },
                 "examples": {
                   "Name error type": {
@@ -104,6 +104,42 @@
             }
           }
         }
+      },
+      "get": {
+        "summary": "Busca todos os itens medievais",
+        "description": "Essa rota será responsável por retornar todos os itens medievais",
+        "tags": ["Products"],
+        "name": "getAll",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schema/GetProducts"
+                },
+                "examples": {
+                  "product": {
+                    "value": [
+                      {
+                        "id": 1,
+                        "name": "Arco Escudo Invejável 1",
+                        "amount": "3 Gemas da Noite",
+                        "orderId": 2
+                      },
+                      {
+                        "id": 2,
+                        "name": "Arco Escudo Invejável 2",
+                        "amount": "3 Gemas da Noite",
+                        "orderId": null
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -120,7 +156,7 @@
           }
         }
       },
-      "ItemError": {
+      "ObjectError": {
         "type": "object",
         "properties": {
           "error": {
@@ -143,6 +179,27 @@
               "amount": {
                 "type": "string"
               }
+            }
+          }
+        }
+      },
+      "GetProducts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "amount": {
+              "type": "string"
+            },
+            "orderId": {
+              "type": "number",
+              "nullable": true
             }
           }
         }
